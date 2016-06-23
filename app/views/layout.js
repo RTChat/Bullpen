@@ -1,7 +1,5 @@
 // Layout - The parent view of the whole app, and also the router.
 
-// require('styles/layout.css');
-
 // Add "client" subview.
 _.extend(RTChat.Views.Layout.prototype.subviewCreators, {
 	client: function() { return new RTChat.Views.ClientLayout(); },
@@ -17,6 +15,10 @@ module.exports = RTChat.Views.Layout.extend({
 		if (document.location.hash.length === 0) {
 			this.$el.html(this.template);
 			this.$('.main-panel').html(this.welcomeTemplate);
+		} else if(document.location.hash.match(/\?$/)) {
+			// Go to a unique chat room.
+			//TODO: UUID.
+			document.location.hash = document.location.hash + Math.random();
 		} else if(document.location.hash.match(/\?/)) {
 			this.$el.html(this.clientLayout);
 		} else {
